@@ -1,0 +1,323 @@
+package Controller;
+
+import Model.Consultatii;
+import Model.LanguageObservable;
+import Model.Pacient;
+import Model.UtilizatorPersistenta;
+import View.LoginGui;
+import View.MedicGui;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+public class MedicController {
+    private final MedicGui medicview;
+    private final UtilizatorPersistenta utilizatorPersistenta;
+    private int idmedic;
+    private final LanguageObservable languageObservable;
+
+
+
+    public MedicController() {
+        this.medicview = new MedicGui();
+        this.utilizatorPersistenta = new UtilizatorPersistenta();
+        this.languageObservable = new LanguageObservable();
+
+        JButton btnEnglish = this.medicview.getEng();
+        btnEnglish.addActionListener(e -> {
+            Locale.setDefault(new Locale("en","US"));
+            ResourceBundle.getBundle("MessageBundle");
+            languageObservable.setLanguage("en_US");
+        });
+
+        languageObservable.addObserver((observable, arg) -> {
+            String language = (String) arg;
+            ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", new Locale(language.substring(0, 2), language.substring(4)));
+            // String usCancel = bundle.getString("cancelButton");
+            String usidPacient = bundle.getString("idPacient");
+            //String usAdauga = bundle.getString("Adauga");
+            String usNume = bundle.getString("Nume");
+            String usParola = bundle.getString("Parola");
+            String usIdMedic = bundle.getString("idMedic");
+            //String usSterge = bundle.getString("Sterge");
+            String usActualizare = bundle.getString("Actualizare");
+           // String usIesire = bundle.getString("Inapoi");
+            String ussRefresh =bundle.getString("Reincarca");
+            String usFiltration =bundle.getString("Filtrare");
+            String usSimptome =bundle.getString("Simptome");
+            String usTratament =bundle.getString("Tratament");
+            String usDiagnostic = bundle.getString("Diagnostic");
+
+
+            DefaultTableModel model = (DefaultTableModel) medicview.getTable().getModel();
+            model.setColumnIdentifiers(new Object[] {usidPacient, usNume,  usDiagnostic,  usTratament, usSimptome, usIdMedic});
+
+
+
+            medicview.getLblIdUtilizator().setText(usidPacient);
+            medicview.getUpdateButton().setText(usActualizare);
+           // medicview.getInsertButton().setText(usAdauga);
+            //medicview.getDeleteButton().setText(usSterge);
+            medicview.getLblIdMedic().setText(usIdMedic);
+            medicview.getLblUsername().setText(usNume);
+            medicview.getBtnRefresh().setText(ussRefresh);
+            medicview.getFiltrateButton().setText(usFiltration);
+            medicview.getLblDiagnostic().setText(usDiagnostic);
+            medicview.getLblTratament().setText(usTratament);
+            medicview.getLblSimptome().setText(usSimptome);
+           // medicview.getCancelButton().setText(usIesire);
+
+
+
+        });
+        JButton btnSP = this.medicview.getSP();
+        btnSP.addActionListener(e -> {
+            Locale.setDefault(new Locale("sp","SP"));
+            ResourceBundle.getBundle("MessageBundle");
+            languageObservable.setLanguage("sp_SP");
+        });
+
+        languageObservable.addObserver((observable, arg) -> {
+            String language = (String) arg;
+            ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", new Locale(language.substring(0, 2), language.substring(4)));
+            // String usCancel = bundle.getString("cancelButton");
+            String usidPacient = bundle.getString("idPacient");
+            //String usAdauga = bundle.getString("Adauga");
+            String usNume = bundle.getString("Nume");
+            String usParola = bundle.getString("Parola");
+            String usIdMedic = bundle.getString("idMedic");
+           // String usSterge = bundle.getString("Sterge");
+            String usActualizare = bundle.getString("Actualizare");
+          //  String usIesire = bundle.getString("Inapoi");
+            String ussRefresh =bundle.getString("Reincarca");
+            String usFiltration =bundle.getString("Filtrare");
+            String usSimptome =bundle.getString("Simptome");
+            String usTratament =bundle.getString("Tratament");
+            String usDiagnostic = bundle.getString("Diagnostic");
+
+
+            DefaultTableModel model = (DefaultTableModel) medicview.getTable().getModel();
+            model.setColumnIdentifiers(new Object[] {usidPacient, usNume,  usDiagnostic,  usTratament, usSimptome, usIdMedic});
+
+
+
+            medicview.getLblIdUtilizator().setText(usidPacient);
+            medicview.getUpdateButton().setText(usActualizare);
+           // medicview.getInsertButton().setText(usAdauga);
+           // medicview.getDeleteButton().setText(usSterge);
+            medicview.getLblIdMedic().setText(usIdMedic);
+            medicview.getLblUsername().setText(usNume);
+            medicview.getBtnRefresh().setText(ussRefresh);
+            medicview.getFiltrateButton().setText(usFiltration);
+            medicview.getLblDiagnostic().setText(usDiagnostic);
+            medicview.getLblTratament().setText(usTratament);
+            medicview.getLblSimptome().setText(usSimptome);
+           // medicview.getCancelButton().setText(usIesire);
+
+
+
+        });
+        JButton btnFR = this.medicview.getFR();
+        btnFR.addActionListener(e -> {
+            Locale.setDefault(new Locale("fr","FR"));
+            ResourceBundle.getBundle("MessageBundle");
+            languageObservable.setLanguage("fr_FR");
+        });
+
+        languageObservable.addObserver((observable, arg) -> {
+            String language = (String) arg;
+            ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", new Locale(language.substring(0, 2), language.substring(4)));
+            // String usCancel = bundle.getString("cancelButton");
+            String usidPacient = bundle.getString("idPacient");
+            //String usAdauga = bundle.getString("Adauga");
+            String usNume = bundle.getString("Nume");
+            String usParola = bundle.getString("Parola");
+            String usIdMedic = bundle.getString("idMedic");
+            //String usSterge = bundle.getString("Sterge");
+            String usActualizare = bundle.getString("Actualizare");
+           // String usIesire = bundle.getString("Inapoi");
+            String ussRefresh =bundle.getString("Reincarca");
+            String usFiltration =bundle.getString("Filtrare");
+            String usSimptome =bundle.getString("Simptome");
+            String usTratament =bundle.getString("Tratament");
+            String usDiagnostic = bundle.getString("Diagnostic");
+
+
+            DefaultTableModel model = (DefaultTableModel) medicview.getTable().getModel();
+            model.setColumnIdentifiers(new Object[] {usidPacient, usNume,  usDiagnostic,  usTratament, usSimptome, usIdMedic});
+
+
+
+            medicview.getLblIdUtilizator().setText(usidPacient);
+            medicview.getUpdateButton().setText(usActualizare);
+            //medicview.getInsertButton().setText(usAdauga);
+            //medicview.getDeleteButton().setText(usSterge);
+            medicview.getLblIdMedic().setText(usIdMedic);
+            medicview.getLblUsername().setText(usNume);
+            medicview.getBtnRefresh().setText(ussRefresh);
+            medicview.getFiltrateButton().setText(usFiltration);
+            medicview.getLblDiagnostic().setText(usDiagnostic);
+            medicview.getLblTratament().setText(usTratament);
+            medicview.getLblSimptome().setText(usSimptome);
+            //medicview.getCancelButton().setText(usIesire);
+
+
+
+        });
+
+        JButton btnok = medicview.getOkButton();
+        btnok.addActionListener(e -> {
+            idmedic = Integer.parseInt(medicview.getTxtIdMedic().getText());
+            afisarePacientiProprii();
+
+        });
+        JButton btnupdate = medicview.getUpdateButton();
+        btnupdate.addActionListener(e -> {
+            try {
+                actualizezaConstultatie();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        });
+        JButton btnFiltration = medicview.getFiltrateButton();
+        btnFiltration.addActionListener(e -> {
+            afisarePacientiDoctor();
+
+        });
+
+
+        JButton btnRefresh = medicview.getBtnRefresh();
+        btnRefresh.addActionListener(e -> afisarePacientiProprii());
+
+
+
+
+
+    }
+
+    public void afisarePacientiProprii() {
+
+
+       // int idmedic = utilizatorPersistenta.getIdUtilizator(nume, parola);
+         //idmedic = Integer.parseInt(medicview.getTxtIdMedic().getText());
+        List<Pacient> pacientProprii = utilizatorPersistenta.getDoctorPatients(idmedic);
+        System.out.println(pacientProprii.size());
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0 && column != 1 && column != 2 && column != 3 && column != 4 ;
+            }
+        };
+        model.addColumn("ID");
+        model.addColumn("Nume");
+        model.addColumn("Simptome");
+        model.addColumn("Diagnostic");
+        model.addColumn("Tratament");
+
+        for (Pacient u : pacientProprii) {
+            model.addRow(new Object[]{u.getId(), u.getNume(), u.getSimptome(), u.getDiagnostic(), u.getTratament()});
+        }
+
+        medicview.setTable(model);
+    }
+    public void afisarePacientiProprii2() {
+
+
+        // int idmedic = utilizatorPersistenta.getIdUtilizator(nume, parola);
+        //idmedic = Integer.parseInt(medicview.getTxtIdMedic().getText());
+        List<Pacient> pacientProprii = utilizatorPersistenta.getDoctorPatients(idmedic);
+        System.out.println(pacientProprii.size());
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0 && column != 1 && column != 2 && column != 3 && column != 4 ;
+            }
+        };
+        model.addColumn("ID");
+        model.addColumn("Nume");
+        model.addColumn("Simptome");
+        model.addColumn("Diagnostic");
+        model.addColumn("Tratament");
+
+        for (Pacient u : pacientProprii) {
+            model.addRow(new Object[]{u.getId(), u.getNume(), u.getSimptome(), u.getDiagnostic(), u.getTratament()});
+        }
+
+        medicview.setTable(model);
+    }
+    public void actualizezaConstultatie() throws SQLException {
+        boolean ok;
+        int id = Integer.parseInt(medicview.getTxtIdUtilizator().getText());
+        String diagnostic = medicview.getTxtDiagnostic().getText();
+        String tratament = medicview.getTxtTratament().getText();
+        String simptome = medicview.getTxtSimptome().getText();
+
+
+
+        Consultatii consultatii= new Consultatii(id, diagnostic, tratament,simptome);
+
+        ok = utilizatorPersistenta.actualizeazaConsultatie(consultatii);
+
+
+        if(ok) {
+            JOptionPane.showMessageDialog(new JFrame("JOptionPane"),"Actualizare efectuata cu succes!","Message",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame("JOptionPane"),"Actualizarea nu s-a efectuat!","Error",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    public void afisarePacientiDoctor() {
+        String tratament = medicview.getTxtTratament().getText();
+        String diagnostic = medicview.getTxtDiagnostic().getText();
+
+
+        List<Pacient> pacienti;
+        try {
+            pacienti = utilizatorPersistenta.filtrarePacientiDoctor(tratament, diagnostic, idmedic);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if (pacienti.isEmpty()) {
+            System.out.println("Lista de pacienti este goala.");
+        }
+
+
+        System.out.println(pacienti.size());
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0 && column != 1 && column != 2 ;
+            }
+        };
+        model.addColumn("ID");
+        model.addColumn("CNP");
+        model.addColumn("Nume");
+//        model.addColumn("Diagnostic");
+//        model.addColumn("Tratament");
+//        model.addColumn("Simptome");
+
+
+
+
+        for (Pacient u : pacienti) {
+
+            model.addRow(new Object[]{u.getId(), u.getCNP(), u.getNume()});
+
+        }
+
+        medicview.setTable(model);
+    }
+
+
+
+    public void showMedicGui () {
+
+        medicview.setVisible(true);
+    }
+}
